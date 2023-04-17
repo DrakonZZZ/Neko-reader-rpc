@@ -24,7 +24,7 @@ export default class DiscordPresence {
         };
         this.statusNew = true;
 
-        // EventListener
+        
         document.addEventListener( EventListener.onSelectConnector, this._onSelectConnector.bind(this) );
         document.addEventListener( EventListener.onSelectManga, this._onSelectManga.bind(this) );
         document.addEventListener( EventListener.onSelectChapter, this._onSelectChapter.bind(this) );
@@ -44,7 +44,7 @@ export default class DiscordPresence {
 
     _onSelectConnector(event) {
         this.isThisHentai(event.detail.tags);
-        this.status['details'] = 'Browsin... ' + event.detail.label;
+        this.status['details'] = 'Browsing' + event.detail.label;
         if (this.status.state) delete this.status.state;
         this.status.startTimestamp = + new Date();
         this.statusNew = true;
@@ -62,7 +62,7 @@ export default class DiscordPresence {
 
     _onSelectChapter(event) {
         this.isThisHentai(event.detail.manga.connector.tags);
-        this.status['details'] = 'Viewin... ' + event.detail.manga.title;
+        this.status['details'] = 'Viewing' + event.detail.manga.title;
         this.status['state'] = event.detail.title.padEnd(2); // State min. length is 2 char
         this.status.startTimestamp = + new Date();
         this.statusNew = true;
@@ -72,7 +72,7 @@ export default class DiscordPresence {
     isThisHentai(tags) {
         // Hentai check
         tags = tags.map(t => t.toLowerCase());
-        if(tags.includes('hentai') || tags.includes('porn')) {
+        if(tags.includes('NSFW') || tags.includes('NSFW-content')) {
             this.hentai = true;
         } else {
             this.hentai = false;
@@ -113,7 +113,7 @@ export default class DiscordPresence {
 
     async startDiscordPresence() {
         if(this.rpc) {
-            return; // already running ...
+            return; 
         }
         this.rpc = new DiscordRPC.Client({ transport: 'ipc' });
         this.rpc.on('ready', () => {
@@ -133,7 +133,7 @@ export default class DiscordPresence {
         try {
             await this.rpc.login({ clientId: discordPresenceId });
         } catch (error) {
-            if (typeof error !== 'undefined') { // discord-rpc error handling
+            if (typeof error !== 'undefined') { 
                 if (/Could not connect/i.test(error.message)) {
                     console.warn('Could not connect (Is Discord running?)');
                     return;
@@ -144,7 +144,6 @@ export default class DiscordPresence {
                     // Reset
                     this.rpc = null;
 
-                    // Waiting delay for Discord API to allow new connection
                     setTimeout( () => {
                         this._onSettingsChanged();
                     }, 100000);
@@ -154,7 +153,7 @@ export default class DiscordPresence {
 
                 throw error; // Unknown error
 
-            } else { // Javascript error handling
+            } else { 
                 console.warn('DiscordPresence - Connection was closed unexpectedly.');
                 // Reset
                 this.rpc = null;
