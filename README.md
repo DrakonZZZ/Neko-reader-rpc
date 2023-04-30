@@ -7,6 +7,6 @@
 
 ` Place the downloaded file in your neko manga reader directory ` 
 
-If don't have a copy of the software. Then, grab yourself a copy [HEKUNEKO READER](https://hakuneko.download/) and help the developer  
+If don't have a copy of the software. Then, grab yourself a copy [HEKUNEKO READER](https://hakuneko.download/) and help the developer 😌
 
 
