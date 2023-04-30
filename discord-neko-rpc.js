@@ -1,6 +1,6 @@
 const DiscordRPC = require('discord-rpc');
-DiscordRPC.register(discordPresenceId);
 //const discordPresenceId = '<Your discord id goes here>';
+DiscordRPC.register(discordPresenceId);
 
 export default class DiscordPresence {
 
@@ -32,9 +32,12 @@ export default class DiscordPresence {
         document.addEventListener( EventListener.onSelectChapter, this._onSelectChapter.bind(this) );
     }
 
+    //private functions
+    
     _onSettingsChanged() {
-        this.enabled = this._settings.discordPresence.value !== 'none';
-        this.enabledHentai = this._settings.discordPresence.value === 'hentai';
+        const {statusNew , enabled, enabledHentai} = this
+        enabled = this._settings.discordPresence.value !== 'none';
+        enabledHentai = this._settings.discordPresence.value === 'hentai';
 
         if (this.enabled) {
             this.statusNew = true;
