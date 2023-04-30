@@ -1,6 +1,6 @@
-//const discordPresenceId = '<Your discord id goes here>';
 const DiscordRPC = require('discord-rpc');
 DiscordRPC.register(discordPresenceId);
+//const discordPresenceId = '<Your discord id goes here>';
 
 export default class DiscordPresence {
 
