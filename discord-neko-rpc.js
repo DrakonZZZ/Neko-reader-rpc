@@ -12,18 +12,20 @@ export default class DiscordPresence {
         this._settings = settings; // Engine.Settings
         this.enabled = false;
         this.enabledHentai = false;
-        this.hentai = false; // Is current item hentai?
+        this.hentai = false; // Is current content contains nsfw
 
-        this._settings.addEventListener('loaded', this._onSettingsChanged.bind(this));
-        this._settings.addEventListener('saved', this._onSettingsChanged.bind(this));
-
-        // Current status
+        // Dicord Current status
         this.status = {
             largeImageKey: 'logo',
-            largeImageText: 'readinG a manga or comic'
+            largeImageText: 'reading a manga or comic',
+            SmallImageKey: "",
+            SmallImageText: "",
         };
         this.statusNew = true;
 
+        //Eventhandlers
+        this._settings.addEventListener('loaded', this._onSettingsChanged.bind(this));
+        this._settings.addEventListener('saved', this._onSettingsChanged.bind(this));
         
         document.addEventListener( EventListener.onSelectConnector, this._onSelectConnector.bind(this) );
         document.addEventListener( EventListener.onSelectManga, this._onSelectManga.bind(this) );
